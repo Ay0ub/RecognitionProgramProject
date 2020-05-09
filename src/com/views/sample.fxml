@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
+   <children>
+      <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" text="Tester" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+      <Label layoutX="50.0" layoutY="72.0" prefHeight="30.0" prefWidth="149.0" text="Entrez le RegEx" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="126.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
+      <TextField fx:id="regExText" layoutX="88.0" layoutY="102.0" promptText="Entrez le RegEx" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="102.0" />
+      <TextField fx:id="expText" layoutX="88.0" layoutY="174.0" promptText="Entrez l'expression" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+      <Label layoutX="50.0" layoutY="144.0" prefHeight="30.0" prefWidth="171.0" text="Entrez l'expression" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="100.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="14.0" prefHeight="35.0" prefWidth="327.0" text="Programme de reconnaissance" textAlignment="CENTER" textFill="#07faa5" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="26.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>
