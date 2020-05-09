@@ -18,4 +18,3 @@ public class NFA {
 		this.nfa = nfa;
 	}
 }
-// This line make it work

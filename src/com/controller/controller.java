@@ -17,10 +17,10 @@ public class controller {
     public TextField expText;
 
 
-    // stores de NFA
+    //enregistre  AFN
     private static NFA nfa;
 
-    // stores the DFA
+    //enregistre  AFD
     private static DFA dfa;
     public Button quitter;
 
@@ -38,23 +38,22 @@ public class controller {
             errorAlert.showAndWait();
         }else
         {
-            // Generate NFA using thompson algorithms with the Regular Expression
+            // Generer AFN en utilisant thompson algorithms avec  Expression Reguliere
             setNfa (RegularExpression.generateNFA (regEx));
 
-            // Generate DFA using the previous NFA and the Subset Construction Algorithm
+            // Generer AFD  en utilisant AFN
             setDfa (RegularExpression.generateDFA (getNfa()));
 
-            // Validate all the string with the DFA
-            // yes = valid string
-            // no = invalid string
+            // Valider String avec AFD
+
             if (ValidateExpression.validate(getDfa(), exp)) {
                 alert.setHeaderText("Mot reconnu");
                 alert.showAndWait();
             }else
-                {
-                    alert.setHeaderText("Mot non reconnu");
-                    alert.showAndWait();
-                }
+            {
+                alert.setHeaderText("Mot non reconnu");
+                alert.showAndWait();
+            }
         }
     }
 

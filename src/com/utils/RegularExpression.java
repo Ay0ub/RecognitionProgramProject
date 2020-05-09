@@ -6,71 +6,71 @@ import java.util.*;
 
 public class RegularExpression {
 	private static int stateID = 0;
-	
+
 	private static Stack<NFA> stackNfa = new Stack<NFA> ();
-	private static Stack<Character> operator = new Stack<Character> ();	
+	private static Stack<Character> operator = new Stack<Character> ();
 
 	private static Set<State> set1 = new HashSet <State> ();
 	private static Set<State> set2 = new HashSet <State> ();
-	
+
 	// Set of inputs
 	private static Set <Character> input = new HashSet <Character> ();
 
 
-	// Generates NFA using the regular expression
+	// Generer AFN en utilisant expression reguliere
 	public static NFA generateNFA(String regular) {
-		// Generate regular expression with the concatenation
+		// Generere regular expression avec la  concatenation
 		regular = AddConcat (regular);
-		
+
 		// Only inputs available
 		input.add('a');
 		input.add('b');
-		
+
 		// Cleaning stacks
 		stackNfa.clear();
 		operator.clear();
 
-		for (int i = 0 ; i < regular.length(); i++) {	
+		for (int i = 0 ; i < regular.length(); i++) {
 
 			if (isInputCharacter (regular.charAt(i))) {
 				pushStack(regular.charAt(i));
-				
+
 			} else if (operator.isEmpty()) {
 				operator.push(regular.charAt(i));
-				
+
 			} else if (regular.charAt(i) == '(') {
 				operator.push(regular.charAt(i));
-				
+
 			} else if (regular.charAt(i) == ')') {
 				while (operator.get(operator.size()-1) != '(') {
 					doOperation();
-				}				
-		
+				}
+
 				// Pop the '(' left parenthesis
 				operator.pop();
-				
+
 			} else {
-				while (!operator.isEmpty() && 
+				while (!operator.isEmpty() &&
 						Priority (regular.charAt(i), operator.get(operator.size() - 1)) ){
 					doOperation ();
 				}
 				operator.push(regular.charAt(i));
-			}		
-		}		
-		
-		// Clean the remaining elements in the stack
+			}
+		}
+
+		// effacer elements restant dans la pile
 		while (!operator.isEmpty()) {	doOperation(); }
-		
-		// Get the complete nfa
+
+		// Get AFN
 		NFA completeNfa = stackNfa.pop();
-		
+
 		// add the accpeting state to the end of NFA
 		completeNfa.getNfa().get(completeNfa.getNfa().size() - 1).setAcceptState(true);
-		
+
 		// return the nfa
 		return completeNfa;
 	}
-	
+
 	// Priority of operands
 	private static boolean Priority (char first, Character second) {
 		if(first == second) {	return true;	}
@@ -78,11 +78,11 @@ public class RegularExpression {
 		if(second == '*')  	{	return true;	}
 		if(first == '.') 	{	return false;	}
 		if(second == '.') 	{	return true;	}
-		if(first == '|') 	{	return false;	} 
+		if(first == '|') 	{	return false;	}
 		else 				{	return true;	}
 	}
 
-	// Do the desired operation based on the top of stackNfa
+	// Appliquer operation
 	private static void doOperation () {
 		Alert errorAlert = new Alert(Alert.AlertType.WARNING);
 		if (RegularExpression.operator.size() > 0) {
@@ -92,44 +92,44 @@ public class RegularExpression {
 				case ('|'):
 					union ();
 					break;
-	
+
 				case ('.'):
 					concatenation ();
 					break;
-	
+
 				case ('*'):
 					star ();
 					break;
-	
+
 				default :
 					System.out.println("Unkown Symbol !");
 					//System.exit(1);
-					errorAlert.setHeaderText("Symbole inconnue !!");
-					errorAlert.showAndWait();
-					break;			
+					//errorAlert.setHeaderText("Symbole inconnue !!");
+					//errorAlert.showAndWait();
+					break;
 			}
 		}
 	}
-		
-	// Do the star operation
+
+	// * operation
 	private static void star() {
 		// Retrieve top NFA from Stack
 		NFA nfa = stackNfa.pop();
-		
-		// Create states for star operation
+
+		// Creer etats avec * operation
 		State start = new State(stateID++);
 		State end	= new State(stateID++);
-		
+
 		// Add transition to start and end state
 		start.addTransition(end, 'e');
 		start.addTransition(nfa.getNfa().getFirst(), 'e');
-		
+
 		nfa.getNfa().getLast().addTransition(end, 'e');
 		nfa.getNfa().getLast().addTransition(nfa.getNfa().getFirst(), 'e');
-		
+
 		nfa.getNfa().addFirst(start);
 		nfa.getNfa().addLast(end);
-		
+
 		// Put nfa back in the stackNfa
 		stackNfa.push(nfa);
 	}
@@ -139,92 +139,91 @@ public class RegularExpression {
 		// retrieve nfa 1 and 2 from stackNfa
 		NFA nfa2 = stackNfa.pop();
 		NFA nfa1 = stackNfa.pop();
-		
+
 		// Add transition to the end of nfa 1 to the begin of nfa 2
 		// the transition uses empty string
 		nfa1.getNfa().getLast().addTransition(nfa2.getNfa().getFirst(), 'e');
-		
+
 		// Add all states in nfa2 to the end of nfa1
 		for (State s : nfa2.getNfa()) {	nfa1.getNfa().addLast(s); }
 
 		// Put nfa back to stackNfa
 		stackNfa.push (nfa1);
 	}
-	
+
 	// Makes union of sub NFA 1 with sub NFA 2
 	private static void union() {
 		// Load two NFA in stack into variables
 		NFA nfa2 = stackNfa.pop();
 		NFA nfa1 = stackNfa.pop();
-		
-		// Create states for union operation
+
+		// Creer  union operation
 		State start = new State(stateID++);
 		State end	= new State(stateID++);
 
-		// Set transition to the begin of each subNFA with empty string
+		// Modifier transition au debut de chaque  subNFA avec epsilon
 		start.addTransition(nfa1.getNfa().getFirst(), 'e');
 		start.addTransition(nfa2.getNfa().getFirst(), 'e');
 
-		// Set transition to the end of each subNfa with empty string
+		// Modifier transition a la fin de chaque subNfa avec epsilon
 		nfa1.getNfa().getLast().addTransition(end, 'e');
 		nfa2.getNfa().getLast().addTransition(end, 'e');
 
-		// Add start to the end of each nfa
+		// Add start to the end of each AFN
 		nfa1.getNfa().addFirst(start);
 		nfa2.getNfa().addLast(end);
-		
-		// Add all states in nfa2 to the end of nfa1
-		// in order	
+
+		// Add all states in AFN2 to the end of AFN1
+		// in order
 		for (State s : nfa2.getNfa()) {
 			nfa1.getNfa().addLast(s);
 		}
-		// Put NFA back to stack
-		stackNfa.push(nfa1);		
+		// ajouter AFN a la fin de la pile
+		stackNfa.push(nfa1);
 	}
-	
-	// Push input symbol into stackNfa
+
+	// ajouter symbol  a stackNfa
 	private static void pushStack(char symbol) {
 		State s0 = new State(stateID++);
 		State s1 = new State(stateID++);
-		
-		// add transition from 0 to 1 with the symbol
+
+		// ajouter transition from 0 to 1 with the symbol
 		s0.addTransition(s1, symbol);
-		
-		// new temporary NFA
+
+		// new temporary AFN
 		NFA nfa = new NFA();
-		
-		// Add states to NFA
+
+		// Ajouter etats a AFN
 		nfa.getNfa().addLast(s0);
-		nfa.getNfa().addLast(s1);		
-		
-		// Put NFA back to stackNfa
+		nfa.getNfa().addLast(s1);
+
+		// Ajouter nfa a la fin de la pile stackNfa
 		stackNfa.push(nfa);
 	}
 
-	// add "." when is concatenation between to symbols that
-	// concatenates to each other
+
 	private static String AddConcat(String regular) {
 		String newRegular = new String ("");
 
 		for (int i = 0; i < regular.length() - 1; i++) {
 			if ( isInputCharacter(regular.charAt(i))  && isInputCharacter(regular.charAt(i+1)) ) {
 				newRegular += regular.charAt(i) + ".";
-				
+
 			} else if ( isInputCharacter(regular.charAt(i)) && regular.charAt(i+1) == '(' ) {
 				newRegular += regular.charAt(i) + ".";
-				
+
 			} else if ( regular.charAt(i) == ')' && isInputCharacter(regular.charAt(i+1)) ) {
 				newRegular += regular.charAt(i) + ".";
-				
+
 			} else if (regular.charAt(i) == '*'  && isInputCharacter(regular.charAt(i+1)) ) {
 				newRegular += regular.charAt(i) + ".";
-				
+
 			} else if ( regular.charAt(i) == '*' && regular.charAt(i+1) == '(' ) {
 				newRegular += regular.charAt(i) + ".";
-				
+
 			} else if ( regular.charAt(i) == ')' && regular.charAt(i+1) == '(') {
-				newRegular += regular.charAt(i) + ".";			
-				
+				newRegular += regular.charAt(i) + ".";
+
 			} else {
 				newRegular += regular.charAt(i);
 			}
@@ -241,41 +240,40 @@ public class RegularExpression {
 		else					return false;
 	}
 
-	
-	// Using the NFA, generates the DFA
+
+	//generer AFD
 	public static DFA generateDFA(NFA nfa) {
 		// Creating the DFA
 		DFA dfa = new DFA();
 
-		// Clearing all the states ID for the DFA
+		// Clearing all the states ID for the AFD
 		stateID = 0;
 
-		// Create an arrayList of unprocessed States
+		// Creer arrayList  pour etat non traiter
 		LinkedList <State> unprocessed = new LinkedList<State> ();
-		
-		// Create sets
+
+		// Creer sets
 		set1 = new HashSet <State> ();
 		set2 = new HashSet <State> ();
 
-		// Add first state to the set1
+		// Ajouter premiere etat a  set1
 		set1.add(nfa.getNfa().getFirst());
 
 		// Run the first remove Epsilon the get states that
 		// run with epsilon
 		removeEpsilonTransition ();
 
-		// Create the start state of DFA and add to the stack
+
 		State dfaStart = new State(set2, stateID++);
-		
+
 		dfa.getDfa().addLast(dfaStart);
 		unprocessed.addLast(dfaStart);
-		
-		// While there is elements in the stack
+
 		while (!unprocessed.isEmpty()) {
-			// Process and remove last state in stack
+
 			State state = unprocessed.removeLast();
 
-			// Check if input symbol
+
 			for (Character symbol : input) {
 				set1 = new HashSet<State> ();
 				set2 = new HashSet<State> ();
@@ -295,24 +293,24 @@ public class RegularExpression {
 					}
 				}
 
-				// Not in the DFA set, add it
+
 				if (!found) {
 					State p = new State(set2, stateID++);
 					unprocessed.addLast(p);
 					dfa.getDfa().addLast(p);
 					state.addTransition(p, symbol);
 
-				// Already in the DFA set
+
 				} else {
 					state.addTransition(st, symbol);
 				}
-			}			
+			}
 		}
-		// Return the complete DFA
+		// Return AFD
 		return dfa;
 	}
 
-	// Remove the epsilon transition from states
+	// Supprimer epsilon transition des etats
 	private static void removeEpsilonTransition() {
 		Stack <State> stack = new Stack <State> ();
 		set2 = set1;
@@ -329,9 +327,9 @@ public class RegularExpression {
 				if (!set2.contains(p)) {
 					set2.add(p);
 					stack.push(p);
-				}				
+				}
 			}
-		}		
+		}
 	}
 
 	// Move states based on input symbol
@@ -339,11 +337,10 @@ public class RegularExpression {
 		ArrayList <State> temp = new ArrayList<State> ();
 
 		for (State st : states) {	temp.add(st);	}
-		for (State st : temp) {			
+		for (State st : temp) {
 			ArrayList<State> allStates = st.getAllTransitions(c);
 
 			for (State p : allStates) {	set.add(p);	}
 		}
-	}	
+	}
 }
-// This line make it work
