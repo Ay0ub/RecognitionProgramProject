@@ -1,5 +1,7 @@
 package com.utils;
 
+import javafx.scene.control.Alert;
+
 import java.util.*;
 
 public class RegularExpression {
@@ -13,7 +15,8 @@ public class RegularExpression {
 	
 	// Set of inputs
 	private static Set <Character> input = new HashSet <Character> ();
-	
+
+
 	// Generates NFA using the regular expression
 	public static NFA generateNFA(String regular) {
 		// Generate regular expression with the concatenation
@@ -81,6 +84,7 @@ public class RegularExpression {
 
 	// Do the desired operation based on the top of stackNfa
 	private static void doOperation () {
+		Alert errorAlert = new Alert(Alert.AlertType.WARNING);
 		if (RegularExpression.operator.size() > 0) {
 			char charAt = operator.pop();
 
@@ -99,7 +103,9 @@ public class RegularExpression {
 	
 				default :
 					System.out.println("Unkown Symbol !");
-					System.exit(1);
+					//System.exit(1);
+					errorAlert.setHeaderText("Symbole inconnue !!");
+					errorAlert.showAndWait();
 					break;			
 			}
 		}

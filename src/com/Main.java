@@ -5,14 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/views/sample.fxml"));
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("views/sample.fxml"));
         primaryStage.setTitle("programme");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(new Scene(root, 400, 380));
         primaryStage.show();
     }
 

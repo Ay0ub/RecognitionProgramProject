@@ -5,8 +5,10 @@ import com.utils.NFA;
 import com.utils.RegularExpression;
 import com.utils.ValidateExpression;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class controller {
 
@@ -14,18 +16,25 @@ public class controller {
     public TextField regExText;
     public TextField expText;
 
-    String regEx = regExText.getText();
-    String exp = expText.getText();
-
 
     // stores de NFA
     private static NFA nfa;
 
     // stores the DFA
     private static DFA dfa;
+    public Button quitter;
 
     public void onTest(ActionEvent actionEvent) {
+        String regEx = regExText.getText();
+        String exp = expText.getText();
 
+        Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+        if(regEx.isEmpty() || exp.isEmpty())
+        {
+            errorAlert.setHeaderText("Un des champs est vide");
+            errorAlert.setContentText("Veuillez remplire tous les champs");
+            errorAlert.showAndWait();
+        }
         // Generate NFA using thompson algorithms with the Regular Expression
         setNfa (RegularExpression.generateNFA (regEx));
 
@@ -35,14 +44,19 @@ public class controller {
         // Validate all the string with the DFA
         // yes = valid string
         // no = invalid string
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (ValidateExpression.validate(getDfa(), exp))
         {
-            System.out.println ("yes");
+            alert.setHeaderText("Yes");
+            alert.setContentText("Yes");
+            alert.showAndWait();
         }else
-        {
-            System.out.println ("no");
-        }
-        //testez.setOnAction(event -> onTest(actionEvent));
+            {
+            alert.setHeaderText("No");
+            alert.setContentText("No");
+            alert.showAndWait();
+            }
     }
 
     // Getters and Setters
@@ -60,5 +74,12 @@ public class controller {
 
     public static void setDfa(DFA dfa) {
         controller.dfa = dfa;
+    }
+
+    public void onClick(MouseEvent mouseEvent) {
+    }
+
+    public void onQuitter(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

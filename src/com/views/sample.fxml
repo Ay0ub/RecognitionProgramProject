@@ -6,9 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
    <children>
-      <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" text="Tester" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+      <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" onMouseClicked="#onClick" text="Tester" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Label layoutX="50.0" layoutY="72.0" prefHeight="30.0" prefWidth="149.0" text="Entrez le RegEx" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="126.0">
          <font>
             <Font size="20.0" />
@@ -23,7 +26,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="27.0" layoutY="14.0" prefHeight="35.0" prefWidth="327.0" text="Programme de reconnaissance" textAlignment="CENTER" textFill="#07faa5" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="26.0">
+      <Label layoutX="27.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="326.0" text="Programme de reconnaissance" textAlignment="CENTER" textFill="#07faa5" wrapText="true" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -38,5 +41,9 @@
             </Lighting>
          </effect>
       </Label>
+      <Button fx:id="quitter" onAction="#onQuitter" blendMode="GREEN" layoutX="164.0" layoutY="271.0" mnemonicParsing="false" text="Quitter" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
