@@ -25,38 +25,37 @@ public class controller {
     public Button quitter;
 
     public void onTest(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert errorAlert = new Alert(Alert.AlertType.WARNING);
+
         String regEx = regExText.getText();
         String exp = expText.getText();
 
-        Alert errorAlert = new Alert(Alert.AlertType.WARNING);
         if(regEx.isEmpty() || exp.isEmpty())
         {
             errorAlert.setHeaderText("Un des champs est vide");
             errorAlert.setContentText("Veuillez remplire tous les champs");
             errorAlert.showAndWait();
-        }
-        // Generate NFA using thompson algorithms with the Regular Expression
-        setNfa (RegularExpression.generateNFA (regEx));
-
-        // Generate DFA using the previous NFA and the Subset Construction Algorithm
-        setDfa (RegularExpression.generateDFA (getNfa()));
-
-        // Validate all the string with the DFA
-        // yes = valid string
-        // no = invalid string
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if (ValidateExpression.validate(getDfa(), exp))
-        {
-            alert.setHeaderText("Yes");
-            alert.setContentText("Yes");
-            alert.showAndWait();
         }else
-            {
-            alert.setHeaderText("No");
-            alert.setContentText("No");
-            alert.showAndWait();
-            }
+        {
+            // Generate NFA using thompson algorithms with the Regular Expression
+            setNfa (RegularExpression.generateNFA (regEx));
+
+            // Generate DFA using the previous NFA and the Subset Construction Algorithm
+            setDfa (RegularExpression.generateDFA (getNfa()));
+
+            // Validate all the string with the DFA
+            // yes = valid string
+            // no = invalid string
+            if (ValidateExpression.validate(getDfa(), exp)) {
+                alert.setHeaderText("Mot reconnu");
+                alert.showAndWait();
+            }else
+                {
+                    alert.setHeaderText("Mot non reconnu");
+                    alert.showAndWait();
+                }
+        }
     }
 
     // Getters and Setters
