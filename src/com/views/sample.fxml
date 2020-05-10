@@ -2,48 +2,46 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="380.0" style="-fx-background-color: #10FBC4;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
    <children>
-      <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" onMouseClicked="#onClick" text="Tester" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+      <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" onMouseClicked="#onClick" style="-fx-background-color: #1BCAFF;" text="Tester" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Label layoutX="50.0" layoutY="72.0" prefHeight="30.0" prefWidth="149.0" text="Entrez le RegEx" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="126.0">
+      <Label layoutX="50.0" layoutY="72.0" prefHeight="30.0" prefWidth="280.0" text="Entrez l'expression régulière" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
          <opaqueInsets>
             <Insets />
          </opaqueInsets></Label>
-      <TextField fx:id="regExText" layoutX="88.0" layoutY="102.0" promptText="Entrez le RegEx" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="102.0" />
-      <TextField fx:id="expText" layoutX="88.0" layoutY="174.0" promptText="Entrez l'expression" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-      <Label layoutX="50.0" layoutY="144.0" prefHeight="30.0" prefWidth="171.0" text="Entrez l'expression" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="100.0">
+      <TextField fx:id="regExText" layoutX="88.0" layoutY="102.0" promptText="Entrez l'expression régulière" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="102.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Consolas" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="expText" layoutX="88.0" layoutY="174.0" promptText="Entrez le mot" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font></TextField>
+      <Label layoutX="50.0" layoutY="144.0" prefHeight="30.0" prefWidth="171.0" text="Entrez le mot" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="100.0">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="27.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="326.0" text="Programme de reconnaissance" textAlignment="CENTER" textFill="#07faa5" wrapText="true" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0">
+      <Label contentDisplay="CENTER" layoutX="21.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="338.0" text="Programme de reconnaissance" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
          <font>
-            <Font size="24.0" />
+            <Font name="Comic Sans MS" size="24.0" />
          </font>
-         <effect>
-            <Lighting>
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
+         <opaqueInsets>
+            <Insets top="1.0" />
+         </opaqueInsets>
       </Label>
-      <Button fx:id="quitter" onAction="#onQuitter" blendMode="GREEN" layoutX="164.0" layoutY="271.0" mnemonicParsing="false" text="Quitter" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+      <Button fx:id="quitter" layoutX="164.0" layoutY="271.0" mnemonicParsing="false" onAction="#onQuitter" style="-fx-background-color: #F27F3D;" text="Quitter" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font></Button>
    </children>
 </AnchorPane>
