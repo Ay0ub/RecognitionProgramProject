@@ -3,29 +3,29 @@ package com.utils;
 public class ValidateExpression {
 
 	// Return if the string is valid with regular expression or not
-	public static boolean validate(DFA dfa, String s) {
+	public static boolean validate(AFD afd, String s) {
 		
-		State state = dfa.getDfa().getFirst();
+		Etat etat = afd.getAfd().getFirst();
 		
 		// Especial case when is empty string
 		if (s.compareTo("e") == 0) {
-			// If first is state is accept state, so empty string is valid
-			if (state.isAcceptState()) 	{	return true; 	}
+			// If first is etat is accept etat, so empty string is valid
+			if (etat.isAcceptEtat()) 	{	return true; 	}
 			else						{	return false; 	}
 			
-		} else if (dfa.getDfa().size() > 0) {	
+		} else if (afd.getAfd().size() > 0) {
 
 			for (int i = 0 ; i < s.length(); i++) {
-				// No transition, so break the DFA
+				// No transition, so break the AFD
 				// and it's invalid string
-				if (state == null) { break; }
+				if (etat == null) { break; }
 				
 				// Get the transition with the input
-				state = state.getNextState().get(s.charAt(i)).get(0);
+				etat = etat.getNextEtat().get(s.charAt(i)).get(0);
 			}
 			
 			// Is valid string
-			if (state != null && state.isAcceptState()) {	return true;	} 
+			if (etat != null && etat.isAcceptEtat()) {	return true;	}
 			// is INvalid string
 			else 										{	return false;	}
 		

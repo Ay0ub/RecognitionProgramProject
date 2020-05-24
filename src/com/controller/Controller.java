@@ -1,16 +1,13 @@
 package com.controller;
 
-import com.utils.DFA;
-import com.utils.NFA;
-import com.utils.RegularExpression;
-import com.utils.ValidateExpression;
+import com.utils.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class controller {
+public class Controller {
 
     public Button testez;
     public TextField regExText;
@@ -18,10 +15,10 @@ public class controller {
 
 
     //enregistre  AFN
-    private static NFA nfa;
+    private static AFND afnd;
 
     //enregistre  AFD
-    private static DFA dfa;
+    private static AFD afd;
     public Button quitter;
 
     public void onTest(ActionEvent actionEvent) {
@@ -39,14 +36,14 @@ public class controller {
         }else
         {
             // Generer AFN en utilisant thompson algorithms avec  Expression Reguliere
-            setNfa (RegularExpression.generateNFA (regEx));
+            setNfa (RegularExpressionToAFND.generateAFND (regEx));
 
             // Generer AFD  en utilisant AFN
-            setDfa (RegularExpression.generateDFA (getNfa()));
+            setAfd (AfndToAfd.generateAFD (getNfa()));
 
             // Valider String avec AFD
 
-            if (ValidateExpression.validate(getDfa(), exp)) {
+            if (ValidateExpression.validate(getAfd(), exp)) {
                 alert.setHeaderText("Mot reconnu");
                 alert.showAndWait();
             }else
@@ -58,20 +55,20 @@ public class controller {
     }
 
     // Getters and Setters
-    public static NFA getNfa() {
-        return nfa;
+    public static AFND getNfa() {
+        return afnd;
     }
 
-    public static void setNfa(NFA nfa) {
-        controller.nfa = nfa;
+    public static void setNfa(AFND afnd) {
+        Controller.afnd = afnd;
     }
 
-    public static DFA getDfa() {
-        return dfa;
+    public static AFD getAfd() {
+        return afd;
     }
 
-    public static void setDfa(DFA dfa) {
-        controller.dfa = dfa;
+    public static void setAfd(AFD afd) {
+        Controller.afd = afd;
     }
 
     public void onClick(MouseEvent mouseEvent) {

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="380.0" style="-fx-background-color: #10FBC4;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.controller">
+<AnchorPane maxHeight="400" maxWidth="380" minHeight="400" minWidth="380" prefHeight="400.0" prefWidth="380.0" style="-fx-background-color: #10FBC4;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.Controller">
    <children>
       <Button fx:id="testez" defaultButton="true" layoutX="136.0" layoutY="221.0" mnemonicParsing="false" onAction="#onTest" onMouseClicked="#onClick" style="-fx-background-color: #1BCAFF;" text="Tester" textFill="WHITE" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
          <font>
